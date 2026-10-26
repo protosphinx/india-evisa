@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>India e-Visa · Redesign concept</title>
+  <meta name="description" content="A redesign concept for the India e-Visa portal. Apply only on the official site, indianvisaonline.gov.in.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    try {
+      const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
+      const s = localStorage.getItem('textSize'); if (s) document.documentElement.dataset.text = s;
+    } catch {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="concept-bar" role="note">
+    <div class="wrap">
+      <span class="concept-pill">Design concept</span>
+      <span>This is not an official Government of India website. Apply only at
+        <a href="https://indianvisaonline.gov.in/evisa/tvoa.html" rel="noopener">indianvisaonline.gov.in</a>.</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#top" aria-label="India e-Visa home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <g stroke="currentColor" stroke-width="1.25">
+            <line x1="16" y1="4" x2="16" y2="12"/><line x1="16" y1="20" x2="16" y2="28"/>
+            <line x1="4" y1="16" x2="12" y2="16"/><line x1="20" y1="16" x2="28" y2="16"/>
+            <line x1="7.5" y1="7.5" x2="13.2" y2="13.2"/><line x1="18.8" y1="18.8" x2="24.5" y2="24.5"/>
+            <line x1="24.5" y1="7.5" x2="18.8" y2="13.2"/><line x1="13.2" y1="18.8" x2="7.5" y2="24.5"/>
+          </g>
+        </svg>
+        <span class="brand-text"><strong>India</strong> e-Visa</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#visas">Visa types</a>
+        <a href="#prepare">Before you apply</a>
+        <a href="#ports">Entry ports</a>
+        <a href="#help">Help</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-tools">
+        <div class="text-size" role="group" aria-label="Text size">
+          <button type="button" data-size="sm" aria-label="Smaller text">A<sup>−</sup></button>
+          <button type="button" data-size="md" aria-label="Default text size">A</button>
+          <button type="button" data-size="lg" aria-label="Larger text">A<sup>+</sup></button>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch colour theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <a class="btn btn-primary btn-sm header-cta" href="https://indianvisaonline.gov.in/evisa/Registration" rel="noopener">Apply</a>
+        <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Electronic Travel Authorisation</p>
+          <h1>Your Indian e-Visa,<br><em>in four steps.</em></h1>
+          <p class="lede">Fill in one form, upload a photo and your passport page, pay online, and get your ETA by email before you fly.</p>
+          <div class="hero-actions" id="primary-actions">
+            <a class="btn btn-primary btn-lg" href="https://indianvisaonline.gov.in/evisa/Registration" rel="noopener">Start application
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-ghost btn-lg" href="https://indianvisaonline.gov.in/evisa/CompletePartially" rel="noopener">Continue a saved application</a>
+          </div>
+          <ul class="hero-facts">
+            <li><strong>4–120 days</strong><span>before arrival to apply</span></li>
+            <li><strong>Card or wallet</strong><span>pay the fee online</span></li>
+            <li><strong>By email</strong><span>ETA sent when granted</span></li>
+          </ul>
+        </div>
+
+        <aside class="task-panel" aria-labelledby="tasks-title">
+          <div class="task-head">
+            <h2 id="tasks-title">Already applied?</h2>
+            <span class="muted small">Opens the official portal</span>
+          </div>
+          <ul class="task-list" id="task-list">
+            <li class="skeleton-row"></li><li class="skeleton-row"></li><li class="skeleton-row"></li>
+            <li class="skeleton-row"></li><li class="skeleton-row"></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="notices" aria-label="Updates">
+      <div class="wrap notice-grid" id="notice-grid">
+        <div class="notice skeleton"></div><div class="notice skeleton"></div><div class="notice skeleton"></div>
+      </div>
+    </section>
+
+    <section class="section steps-section" aria-labelledby="steps-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2 id="steps-title">From form to arrival</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-num">1</span>
+            <h3>Apply online</h3>
+            <p>Complete the form and upload a photo and your passport bio page. You can save it and finish later.</p>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <h3>Pay the fee</h3>
+            <p>Pay by credit or debit card or a payment wallet. The fee depends on your nationality and visa type.</p>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <h3>Receive your ETA</h3>
+            <p>Your Electronic Travel Authorisation arrives by email. If a document needs fixing, you'll be asked to re-upload it.</p>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <h3>Fly to India</h3>
+            <p>Show your printed ETA at an authorised immigration checkpost, where the e-Visa is stamped in your passport.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="visas" aria-labelledby="visas-title">
+      <div class="wrap">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">Visa types</p>
+            <h2 id="visas-title">Pick the visa that fits your trip</h2>
+          </div>
+          <div class="chips" id="purpose-chips" role="tablist" aria-label="Filter by purpose"></div>
+        </div>
+        <div class="visa-grid" id="visa-grid">
+          <div class="visa-card skeleton"></div><div class="visa-card skeleton"></div>
+          <div class="visa-card skeleton"></div><div class="visa-card skeleton"></div>
+        </div>
+        <p class="fine">Terms are summarised from the official portal. Confirm current terms there before you apply.</p>
+      </div>
+    </section>
+
+    <section class="section advisory-section" aria-labelledby="advisory-title">
+      <div class="wrap">
+        <div class="advisory">
+          <svg class="advisory-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4.5M12 17.5v.01"/></svg>
+          <div>
+            <h2 id="advisory-title">There are no express or emergency fees</h2>
+            <p>The Government of India charges only the country-specific e-Visa fee, plus bank charges. Websites or agents that promise a faster grant for extra money are not official. Read the Bureau of Immigration's guidance at <a href="https://boi.gov.in" rel="noopener">boi.gov.in</a>.</p>
+            <div class="advisory-links" id="fee-links"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prepare" aria-labelledby="prepare-title">
+      <div class="wrap prepare-grid">
+        <div>
+          <p class="eyebrow">Before you apply</p>
+          <h2 id="prepare-title">Have these ready</h2>
+          <p class="muted">Tick things off as you gather them. Your ticks stay on this device only.</p>
+          <div class="progress" aria-live="polite"><div class="progress-bar"><span id="progress-fill"></span></div><span id="progress-text">0 of 0 ready</span></div>
+        </div>
+        <ul class="checklist" id="checklist"></ul>
+      </div>
+    </section>
+
+    <section class="section" id="ports" aria-labelledby="ports-title">
+      <div class="wrap">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">Authorised entry points</p>
+            <h2 id="ports-title">Where you can enter on an e-Visa</h2>
+          </div>
+          <div class="port-tools">
+            <div class="segmented" id="port-tabs" role="tablist" aria-label="Port type"></div>
+            <label class="search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input id="port-search" type="search" placeholder="Search a city or port" aria-label="Search entry ports">
+            </label>
+          </div>
+        </div>
+        <ul class="port-grid" id="port-grid"></ul>
+        <p class="fine" id="port-count"></p>
+      </div>
+    </section>
+
+    <section class="section" id="help" aria-labelledby="help-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Help</p>
+          <h2 id="help-title">Talk to someone</h2>
+        </div>
+        <div class="help-grid" id="help-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-layout">
+        <div class="faq-side">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Common questions</h2>
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="faq-search" type="search" placeholder="Search questions" aria-label="Search questions">
+          </label>
+          <div class="chips vertical" id="faq-topics" aria-label="Filter by topic"></div>
+        </div>
+        <div class="faq-list" id="faq-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a class="brand" href="#top"><span class="brand-text"><strong>India</strong> e-Visa</span></a>
+        <p class="muted small">A redesign concept of <a href="https://indianvisaonline.gov.in/evisa/tvoa.html" rel="noopener">indianvisaonline.gov.in/evisa</a>. It is not affiliated with the Government of India and does not accept applications or payments. Every action opens the official portal.</p>
+      </div>
+      <div>
+        <h3 class="footer-title">Government sites</h3>
+        <ul class="footer-links" id="gov-links"></ul>
+      </div>
+      <div>
+        <h3 class="footer-title">About this page</h3>
+        <p class="muted small" id="source-note">Loading content…</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="visa-dialog" id="visa-dialog" aria-labelledby="visa-dialog-title">
+    <form method="dialog" class="dialog-close-row"><button class="icon-btn" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+    <div id="visa-dialog-body"></div>
+  </dialog>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

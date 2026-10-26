@@ -1,0 +1,14 @@
+{
+  "name": "india-evisa-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Redesign concept for the India e-Visa portal. Content lives in erp.ai; this server serves the site and reads erp.ai server-side.",
+  "scripts": {
+    "start": "node server.mjs",
+    "seed": "node seed/seed.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
