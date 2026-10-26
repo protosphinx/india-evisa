@@ -6,7 +6,12 @@ const store = {
   get(k, fallback) { try { const v = localStorage.getItem(k); return v === null ? fallback : JSON.parse(v); } catch { return fallback; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
 };
-const ext = (url) => `href="${esc(url)}" rel="noopener"`;
+// Links to this site are stored absolute in erp.ai; render them as same-site paths.
+const SITE = 'https://india-evisa.build.host';
+const internal = (url) => String(url || '').startsWith(SITE) || String(url || '').startsWith('/');
+const ext = (url) => (internal(url)
+  ? `href="${esc(String(url).replace(SITE, '') || '/')}"`
+  : `href="${esc(url)}" rel="noopener"`);
 
 const ICONS = {
   'file-plus': '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 11v6M9 14h6"/>',
@@ -30,7 +35,7 @@ function renderTasks(services) {
   $('#task-list').innerHTML = tasks.map((s) => `
     <li><a ${ext(s.link)}>
       <span class="task-ico">${icon(s.icon)}</span>
-      <span><span class="task-name">${esc(s.name)}</span><br><span class="task-desc">${esc(s.description)}</span></span>
+      <span><span class="task-name">${esc(s.name)}${internal(s.link) ? '' : ' <span class="ext" aria-label="opens the official portal">↗</span>'}</span><br><span class="task-desc">${esc(s.description)}</span></span>
       ${chev}
     </a></li>`).join('');
 
@@ -108,7 +113,7 @@ function openVisa(v) {
     ${v.documents ? `<section class="dlg-section"><h3>Documents</h3><p>${esc(v.documents)}</p></section>` : ''}
     ${v.notes ? `<section class="dlg-section"><h3>Good to know</h3><p>${esc(v.notes)}</p></section>` : ''}
     <div class="dlg-actions">
-      <a class="btn btn-primary" href="https://indianvisaonline.gov.in/evisa/Registration" rel="noopener">Apply on the official portal</a>
+      <a class="btn btn-primary" href="/apply?type=${encodeURIComponent(v.name)}">Start an application</a>
       <a class="btn btn-ghost" href="https://indianvisaonline.gov.in/evisa/tvoa.html" rel="noopener">Check current terms</a>
     </div>`;
   if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');

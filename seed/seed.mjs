@@ -3,12 +3,12 @@
 //   ERPAI_API_KEY=... node seed/seed.mjs            # creates a new app
 //   ERPAI_API_KEY=... ERPAI_APP_ID=... node seed/seed.mjs [--reset]
 //
-// Safe to re-run: existing tables get any missing columns, and rows are only
-// loaded into empty tables unless --reset clears them first.
+// Safe to re-run: existing tables get any missing columns, and rows are
+// upserted by Name. --reset deletes all rows first (needs records:delete).
 // Prints the app id to stdout on the last line.
 
 import { client } from '../lib/erpai.mjs';
-import { APP, TABLES, NAME_COLUMN, camel } from './schema.mjs';
+import { APP, TABLES, APPLICATIONS, NAME_COLUMN, camel } from './schema.mjs';
 import { CONTENT } from './content.mjs';
 
 const apiKey = process.env.ERPAI_API_KEY;
@@ -48,7 +48,7 @@ function cellsFor(row, columns) {
   return cells;
 }
 
-for (const def of TABLES) {
+for (const def of [...TABLES, APPLICATIONS]) {
   const defColumns = [NAME_COLUMN, ...def.columns];
   let tableId = existing.get(def.name);
   if (!tableId) {
@@ -83,23 +83,32 @@ for (const def of TABLES) {
     await api.call('PUT', `/v1/app-builder/table/${tableId}`, { body: { appId, nameField: nameCol.id } });
   }
 
-  const old = await api.allRecords(tableId);
-  if (old.length && !reset) {
-    console.error(`${def.name} already has ${old.length} rows, skipping (pass --reset to reload)`);
+  // Applications holds user submissions: create its schema, never touch rows.
+  if (def === APPLICATIONS) {
+    console.error(`${def.name} schema ready`);
     continue;
   }
-  if (old.length) {
+
+  let old = await api.allRecords(tableId);
+  if (old.length && reset) {
     await api.call('DELETE', `/v1/app-builder/table/${tableId}/record`, { body: old.map((r) => r._id) });
     console.error(`cleared ${old.length} rows from ${def.name}`);
+    old = [];
   }
 
-  const rows = CONTENT[def.key];
-  for (let i = 0; i < rows.length; i += 50) {
-    await api.call('POST', `/v1/app-builder/table/${tableId}/record-bulk`, {
-      body: { appId, arr: rows.slice(i, i + 50).map((row) => ({ cells: cellsFor(row, columns) })) },
-    });
+  // Upsert by Name: rows already in erp.ai are updated in place (edits made
+  // there to other rows are left alone), new rows are inserted.
+  const byName = new Map(old.map((r) => [r.cells?.[nameCol.id], r._id]));
+  const rows = CONTENT[def.key].map((row) => ({ _id: byName.get(row.name), cells: cellsFor(row, columns) }));
+  const updates = rows.filter((r) => r._id);
+  const inserts = rows.filter((r) => !r._id).map(({ cells }) => ({ cells }));
+  for (let i = 0; i < updates.length; i += 50) {
+    await api.call('PUT', `/v1/app-builder/table/${tableId}/record-bulk`, { body: { appId, arr: updates.slice(i, i + 50) } });
   }
-  console.error(`loaded ${rows.length} rows into ${def.name}`);
+  for (let i = 0; i < inserts.length; i += 50) {
+    await api.call('POST', `/v1/app-builder/table/${tableId}/record-bulk`, { body: { appId, arr: inserts.slice(i, i + 50) } });
+  }
+  console.error(`${def.name}: updated ${updates.length}, inserted ${inserts.length}`);
 }
 
 console.log(appId);

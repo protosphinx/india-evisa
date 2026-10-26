@@ -3,14 +3,16 @@
 // to it only when erp.ai is not configured or unreachable.
 
 const OFFICIAL = 'https://indianvisaonline.gov.in/evisa/';
+// The site itself. Links here are rendered as same-site paths by the frontend.
+const SITE = 'https://india-evisa.build.host';
 
 const ordered = (rows) => rows.map((row, i) => ({ ...row, order: i + 1 }));
 
 export const CONTENT = {
   services: ordered([
-    { name: 'Start a new application', kind: 'Primary', icon: 'file-plus', link: `${OFFICIAL}Registration`, description: 'Fill in the form and upload your photo and passport page.' },
-    { name: 'Continue a saved application', kind: 'Primary', icon: 'file-clock', link: `${OFFICIAL}CompletePartially`, description: 'Pick up a partly filled form where you left off.' },
-    { name: 'Check visa status', kind: 'Task', icon: 'search', link: `${OFFICIAL}StatusEnquiry`, description: 'See whether your ETA has been granted.' },
+    { name: 'Start a new application', kind: 'Primary', icon: 'file-plus', link: `${SITE}/apply`, description: 'Fill in the form and upload your photo and passport page.' },
+    { name: 'Continue a saved application', kind: 'Primary', icon: 'file-clock', link: `${SITE}/apply?resume`, description: 'Pick up a saved draft with its reference and your email.' },
+    { name: 'Check visa status', kind: 'Task', icon: 'search', link: `${SITE}/apply?status`, description: 'See whether your ETA has been granted.' },
     { name: 'Pay or verify fee', kind: 'Task', icon: 'card', link: `${OFFICIAL}PaymentCheck`, description: 'Pay the e-Visa fee or confirm a payment went through.' },
     { name: 'Print your e-Visa', kind: 'Task', icon: 'printer', link: `${OFFICIAL}PrintApplication`, description: 'Download the ETA to carry when you travel.' },
     { name: 'Re-upload documents', kind: 'Task', icon: 'upload', link: `${OFFICIAL}ReuploadData`, description: 'Replace a photo or document you were asked to fix.' },

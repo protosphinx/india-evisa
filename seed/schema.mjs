@@ -132,3 +132,28 @@ export const camel = (name) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+(.)/g, (_, c) => c.toUpperCase())
     .replace(/[^a-z0-9]/gi, '');
+
+// Demo applications submitted through /apply. Kept out of TABLES so the
+// public /api/content endpoint never reads it.
+export const APPLICATIONS = {
+  key: 'applications',
+  name: 'Applications',
+  icon: 'FileUser',
+  category: 'Applications',
+  description: 'Demo e-Visa applications and drafts submitted through the prototype form. Change Status or Officer Note here and the applicant sees it on the status page.',
+  columns: [
+    { name: 'Reference', type: 'text' },
+    { name: 'Status', type: 'select', options: ['Draft', 'Submitted', 'Under review', 'Granted', 'Rejected'] },
+    { name: 'Visa Type', type: 'text' },
+    { name: 'Nationality', type: 'text' },
+    { name: 'Email', type: 'email' },
+    { name: 'Phone', type: 'text' },
+    { name: 'Arrival Date', type: 'date' },
+    { name: 'Port Of Arrival', type: 'text' },
+    { name: 'Date Of Birth', type: 'date' },
+    { name: 'Passport Number', type: 'text' },
+    { name: 'Purpose Details', type: 'long_text' },
+    { name: 'Submitted At', type: 'date' },
+    { name: 'Officer Note', type: 'long_text' },
+  ],
+};

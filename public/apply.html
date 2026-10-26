@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apply · India e-Visa prototype</title>
+  <meta name="description" content="Prototype e-Visa application flow. Use sample data only; nothing is sent to the Government of India.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    try {
+      const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
+      const s = localStorage.getItem('textSize'); if (s) document.documentElement.dataset.text = s;
+    } catch {}
+  </script>
+</head>
+<body class="apply-page">
+  <div class="concept-bar" role="note">
+    <div class="wrap">
+      <span class="concept-pill">Prototype</span>
+      <span>Use sample details only. Applications here are demo records and are not sent to the Government of India. Real applications:
+        <a href="https://indianvisaonline.gov.in/evisa/tvoa.html" rel="noopener">indianvisaonline.gov.in</a>.</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/" aria-label="India e-Visa home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <g stroke="currentColor" stroke-width="1.25">
+            <line x1="16" y1="4" x2="16" y2="12"/><line x1="16" y1="20" x2="16" y2="28"/>
+            <line x1="4" y1="16" x2="12" y2="16"/><line x1="20" y1="16" x2="28" y2="16"/>
+            <line x1="7.5" y1="7.5" x2="13.2" y2="13.2"/><line x1="18.8" y1="18.8" x2="24.5" y2="24.5"/>
+            <line x1="24.5" y1="7.5" x2="18.8" y2="13.2"/><line x1="13.2" y1="18.8" x2="7.5" y2="24.5"/>
+          </g>
+        </svg>
+        <span class="brand-text"><strong>India</strong> e-Visa</span>
+      </a>
+      <nav class="apply-nav" aria-label="Application">
+        <a href="/apply" data-view-link="form">New application</a>
+        <a href="/apply?resume" data-view-link="resume">Continue saved</a>
+        <a href="/apply?status" data-view-link="status">Check status</a>
+      </nav>
+      <div class="header-tools">
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch colour theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap apply-main">
+
+    <!-- New / resumed application -->
+    <section id="view-form" class="view" hidden>
+      <div class="apply-head">
+        <div>
+          <p class="eyebrow" id="form-eyebrow">New application</p>
+          <h1>Apply for an e-Visa</h1>
+          <p class="muted" id="draft-line">Takes about 10 minutes. Save at any step and come back later.</p>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="fill-sample">Fill with sample data</button>
+      </div>
+
+      <div class="apply-grid">
+        <ol class="stepper" id="stepper">
+          <li data-step="0"><span class="dot">1</span><span><strong>Trip and contact</strong><small>Visa type, arrival, email</small></span></li>
+          <li data-step="1"><span class="dot">2</span><span><strong>Applicant</strong><small>As shown in your passport</small></span></li>
+          <li data-step="2"><span class="dot">3</span><span><strong>Documents</strong><small>Photo and passport page</small></span></li>
+          <li data-step="3"><span class="dot">4</span><span><strong>Review and submit</strong><small>Check everything once</small></span></li>
+        </ol>
+
+        <form id="apply-form" class="apply-card" novalidate>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <fieldset class="step" data-step="0">
+            <legend>Trip and contact</legend>
+            <div class="field">
+              <span class="label">Visa type</span>
+              <div class="visa-options" id="visa-options" role="radiogroup" aria-label="Visa type"></div>
+              <span class="err" data-err="visaType"></span>
+            </div>
+            <div class="row">
+              <label class="field"><span class="label">Nationality</span>
+                <input name="nationality" list="countries" autocomplete="country-name" placeholder="Start typing a country">
+                <span class="err" data-err="nationality"></span></label>
+              <label class="field"><span class="label">Email</span>
+                <input name="email" type="email" autocomplete="email" placeholder="you@example.com">
+                <span class="hint">Your ETA and updates go here.</span>
+                <span class="err" data-err="email"></span></label>
+            </div>
+            <div class="row">
+              <label class="field"><span class="label">Expected arrival date</span>
+                <input name="arrivalDate" type="date">
+                <span class="hint" id="arrival-hint">Between 4 and 120 days from today.</span>
+                <span class="err" data-err="arrivalDate"></span></label>
+              <label class="field"><span class="label">Port of arrival</span>
+                <select name="portOfArrival" id="port-select"><option value="">Choose a port</option></select>
+                <span class="err" data-err="portOfArrival"></span></label>
+            </div>
+            <label class="field"><span class="label">Phone <em>optional</em></span>
+              <input name="phone" type="tel" autocomplete="tel" placeholder="+44 7700 900123">
+              <span class="err" data-err="phone"></span></label>
+          </fieldset>
+
+          <fieldset class="step" data-step="1" hidden>
+            <legend>Applicant</legend>
+            <label class="field"><span class="label">Full name, as in passport</span>
+              <input name="name" autocomplete="name">
+              <span class="err" data-err="name"></span></label>
+            <div class="row">
+              <label class="field"><span class="label">Date of birth</span>
+                <input name="dateOfBirth" type="date">
+                <span class="err" data-err="dateOfBirth"></span></label>
+              <label class="field"><span class="label">Passport number</span>
+                <input name="passportNumber" autocapitalize="characters" spellcheck="false" placeholder="Sample data only">
+                <span class="hint">6 to 12 letters and digits. Use a sample value.</span>
+                <span class="err" data-err="passportNumber"></span></label>
+            </div>
+            <label class="field"><span class="label">Purpose of visit <em>optional</em></span>
+              <textarea name="purposeDetails" rows="4" maxlength="1000" placeholder="For example: two weeks of sightseeing in Rajasthan and Agra."></textarea>
+              <span class="err" data-err="purposeDetails"></span></label>
+          </fieldset>
+
+          <fieldset class="step" data-step="2" hidden>
+            <legend>Documents</legend>
+            <p class="muted small">Files are checked in your browser against the portal's rules and are not uploaded in this prototype.</p>
+            <div class="row">
+              <label class="drop" data-file="photo">
+                <input type="file" accept="image/jpeg" data-kind="photo">
+                <span class="drop-preview" id="photo-preview" aria-hidden="true"></span>
+                <span><strong>Photo</strong><small>JPEG, 10 KB to 1 MB, plain light background</small></span>
+                <span class="file-status" id="photo-status">No file chosen</span>
+              </label>
+              <label class="drop" data-file="scan">
+                <input type="file" accept="application/pdf" data-kind="scan">
+                <span class="drop-preview pdf" aria-hidden="true">PDF</span>
+                <span><strong>Passport bio page</strong><small>PDF, 10 KB to 300 KB</small></span>
+                <span class="file-status" id="scan-status">No file chosen</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="3" hidden>
+            <legend>Review and submit</legend>
+            <dl class="review" id="review"></dl>
+            <label class="consent">
+              <input type="checkbox" name="consent">
+              <span>I used sample details, not my real passport information. I understand this prototype does not issue visas.</span>
+            </label>
+            <span class="err" data-err="consent"></span>
+          </fieldset>
+
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+
+          <div class="form-nav">
+            <button type="button" class="btn btn-ghost" id="back-btn">Back</button>
+            <button type="button" class="btn btn-link" id="save-btn">Save and finish later</button>
+            <button type="submit" class="btn btn-primary" id="next-btn">Continue</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Saved draft -->
+    <section id="view-saved" class="view narrow" hidden>
+      <div class="result-card">
+        <span class="result-icon ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+        <h1>Draft saved</h1>
+        <p class="muted">Keep this reference. You need it and your email to continue.</p>
+        <p class="ref" id="saved-ref"></p>
+        <div class="result-actions">
+          <button type="button" class="btn btn-primary" id="keep-editing">Keep editing</button>
+          <a class="btn btn-ghost" href="/">Back to home</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submitted -->
+    <section id="view-done" class="view narrow" hidden>
+      <div class="result-card">
+        <span class="result-icon ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+        <h1>Application submitted</h1>
+        <p class="muted">In the real service you would now pay the fee. In this prototype, the application is stored as a demo record.</p>
+        <p class="ref" id="done-ref"></p>
+        <div class="result-actions">
+          <a class="btn btn-primary" id="done-status" href="/apply?status">Check status</a>
+          <a class="btn btn-ghost" href="/">Back to home</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume and status lookups share one form -->
+    <section id="view-lookup" class="view narrow" hidden>
+      <form class="result-card lookup" id="lookup-form" novalidate>
+        <p class="eyebrow" id="lookup-eyebrow">Continue saved application</p>
+        <h1 id="lookup-title">Find your application</h1>
+        <p class="muted" id="lookup-lede">Enter the reference you were given and the email you applied with.</p>
+        <label class="field"><span class="label">Reference</span>
+          <input name="reference" autocapitalize="characters" spellcheck="false" placeholder="EV-XXXX-XXXX" required></label>
+        <label class="field"><span class="label">Email</span>
+          <input name="email" type="email" autocomplete="email" required></label>
+        <p class="form-error" id="lookup-error" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-lg" id="lookup-btn">Find application</button>
+      </form>
+
+      <div class="result-card status-card" id="status-card" hidden></div>
+    </section>
+  </main>
+
+  <datalist id="countries"></datalist>
+  <script src="/apply.js" type="module"></script>
+</body>
+</html>
